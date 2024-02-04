@@ -1,0 +1,42 @@
+---
+
+---
+
+<section class="hero">
+  <article>
+    <h2 class="hero-text">
+      <span class="first-part">Todos los eventos tecnológicos</span>
+      <span class="second-part">{' '}en un mismo lugar.</span>
+    </h2>
+  </article>
+  <article>
+    <img
+      src="/hero_image.svg"
+      alt="Ilustración donde podemos ver un dibujo de una mujer sentada en el suelo con las piernas cruzadas y su portátil encima. También se ve una bombilla como si se le hubiera ocurrido una idea ingeniosa."
+      class="hero-image"
+      loading="eager"
+    />
+  </article>
+</section>
+
+<style>
+  .hero {
+    @apply container flex flex-col-reverse items-center px-4 py-5 mx-auto mt-px text-left md:grid md:grid-cols-2 md:px-8;
+
+    .hero-text {
+      @apply font-extrabold leading-10 tracking-tight text-left sm:leading-none;
+
+      .first-part {
+        @apply text-4xl text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary-foreground inline md:block md:pb-1 lg:text-5xl;
+      }
+
+      .second-part {
+        @apply text-4xl relative text-black dark:text-white lg:text-5xl md:inline-block;
+      }
+    }
+
+    .hero-image {
+      @apply w-full h-72 object-cover lg:h-[500px];
+    }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import { PiCalendar, PiChalkboard, PiUsersFour } from 'react-icons/pi'
+
+import Link from '../common/link.astro'
+---
+
+<nav class="desktop-menu">
+  <ul class="menu-list">
+    <li><Link href="/">Eventos</Link></li>
+    <li><Link href="/">Meetups</Link></li>
+    <li><Link href="/">Calendario</Link></li>
+  </ul>
+</nav>
+
+<nav class="mobile-menu">
+  <ul class="menu-list">
+    <li><Link linkClass="mobile-link" href="/"><PiChalkboard className="link-icon" />Eventos</Link></li>
+    <li><Link linkClass="mobile-link" href="/"><PiUsersFour className="link-icon" />Meetups</Link></li>
+    <li><Link linkClass="mobile-link" href="/"><PiCalendar className="link-icon" />Calendario</Link></li>
+  </ul>
+</nav>
+
+<style>
+  .desktop-menu {
+    @apply hidden flex-1 justify-end p-4 md:flex;
+
+    & .menu-list {
+      @apply flex gap-6;
+    }
+  }
+
+  .mobile-menu {
+    @apply bg-accent text-accent-foreground fixed z-20 bottom-0 left-0 w-full p-4 pb-8 border md:hidden;
+
+    .menu-list {
+      @apply flex flex-row justify-between;
+
+      .mobile-link {
+        @apply flex flex-col items-center justify-center font-medium text-sm;
+      }
+
+      .link-icon {
+        @apply text-xl;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,9 @@
+---
+import { EventLocator } from '@event/server/di/event.locator'
+import EventHorizontalList from '../event-list/event-horizontal-list.astro'
+
+const getLastEventsQuery = EventLocator.getLastEventsQuery()
+const events = await getLastEventsQuery.execute({ count: 3 })
+---
+
+<EventHorizontalList title="Eventos pasados" events={events} />

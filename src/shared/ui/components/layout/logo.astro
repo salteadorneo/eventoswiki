@@ -1,0 +1,27 @@
+---
+import { Urls } from '../../urls/urls'
+---
+
+<a href={Urls.HOME} class="logo-link">
+  <h1 class="logo">
+    <span class="logo-text">
+      eventos<span class="logo-accent">.wiki</span>
+    </span>
+  </h1>
+</a>
+
+<style>
+  .logo-link {
+    @apply inline-block py-4 md:py-0;
+  }
+
+  .logo {
+    .logo-text {
+      @apply text-xl font-black text-primary;
+
+      .logo-accent {
+        @apply text-xl font-black leading-none text-accent-foreground;
+      }
+    }
+  }
+</style>

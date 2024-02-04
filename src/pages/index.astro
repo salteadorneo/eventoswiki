@@ -1,0 +1,17 @@
+---
+import NextEvents from '@/modules/event/server/ui/components/next-events/next-events.astro'
+import Hero from '@/shared/ui/components/home/hero.astro'
+import LastEvents from '@event/server/ui/components/last-events/last-events.astro'
+import '@ui/styles/globals.css'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="eventos.wiki">
+  <main>
+    <Hero />
+    <NextEvents />
+    <LastEvents />
+  </main>
+</Layout>
+
+<style></style>

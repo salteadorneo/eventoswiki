@@ -1,0 +1,27 @@
+---
+import { EventLocator } from '../../../di/event.locator'
+import EventCard from '../event-card/event-card.astro'
+
+const getEventsQuery = EventLocator.getEventsQuery()
+const events = await getEventsQuery.execute()
+---
+
+<ul class="event-grid">
+  {
+    events.map(event => (
+      <li>
+        <EventCard event={event} />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+</style>

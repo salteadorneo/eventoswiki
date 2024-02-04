@@ -1,0 +1,26 @@
+---
+import { Button } from '@/shared/ui/components/common/button.component'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/ui/components/common/card.component'
+import { Urls } from '@ui/urls/urls'
+import type { Event } from '../../../domain/event'
+
+interface Props {
+  event: Event
+}
+
+const { event } = Astro.props
+---
+
+<Card>
+  <CardHeader>
+    <CardTitle>{event.getName()}</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <p>{event.getShortDescription()}</p>
+  </CardContent>
+  <CardFooter>
+    <Button asChild>
+      <a href={Urls.EVENT(event.path)}>Ver detalles</a>
+    </Button>
+  </CardFooter>
+</Card>

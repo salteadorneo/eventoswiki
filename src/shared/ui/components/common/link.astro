@@ -1,0 +1,14 @@
+---
+import { Button } from './button.component'
+
+interface Props {
+  href: string
+  linkClass?: string
+}
+
+const { href, linkClass } = Astro.props
+---
+
+<Button asChild>
+  <a href={href} class={linkClass}><slot /></a>
+</Button>

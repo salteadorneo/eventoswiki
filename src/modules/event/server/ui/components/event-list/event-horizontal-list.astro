@@ -1,0 +1,46 @@
+---
+import { ScrollArea } from '@ui/components/common/scroll-area.component'
+import Title from '@ui/components/common/title.astro'
+import { Event } from '../../../domain/event'
+import EventCard from '../event-card/event-card.astro'
+
+interface Props {
+  title: string
+  events: Event[]
+}
+
+const { title, events } = Astro.props
+---
+
+<section class="events-horizontal-list">
+  <Title>{title}</Title>
+  <ScrollArea className="event-area">
+    <ul class="event-list">
+      {
+        events.map(event => (
+          <li class="event-item">
+            <EventCard event={event} />
+          </li>
+        ))
+      }
+    </ul>
+  </ScrollArea>
+</section>
+
+<style>
+  .events-horizontal-list {
+    @apply container p-4 md:p-8;
+  }
+
+  .event-area {
+    @apply mt-4;
+  }
+
+  .event-list {
+    @apply list-none flex gap-4;
+
+    .event-item {
+      @apply max-w-lg;
+    }
+  }
+</style>
