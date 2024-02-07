@@ -1,5 +1,4 @@
 ---
-import { ScrollArea } from '@ui/components/common/scroll-area.component'
 import Title from '@ui/components/common/title.astro'
 import { Event } from '../../../domain/event'
 import EventCard from '../event-card/event-card.astro'
@@ -7,40 +6,39 @@ import EventCard from '../event-card/event-card.astro'
 interface Props {
   title: string
   events: Event[]
+  id?: string
 }
 
-const { title, events } = Astro.props
+const { title, events, id } = Astro.props
 ---
 
-<section class="events-horizontal-list">
-  <Title>{title}</Title>
-  <ScrollArea className="event-area">
-    <ul class="event-list">
-      {
-        events.map(event => (
-          <li class="event-item">
-            <EventCard event={event} />
-          </li>
-        ))
-      }
-    </ul>
-  </ScrollArea>
+<section id={id} class="events-horizontal-list">
+  <Title class="list-title">{title}</Title>
+  <ul class="event-list">
+    {
+      events.map(event => (
+        <li class="event-item">
+          <EventCard event={event} />
+        </li>
+      ))
+    }
+  </ul>
 </section>
 
 <style>
   .events-horizontal-list {
-    @apply container p-4 md:p-8;
+    @apply my-2 md:my-4;
   }
 
-  .event-area {
-    @apply mt-4;
+  .list-title {
+    @apply ml-4 lg:ml-8;
   }
 
   .event-list {
-    @apply list-none flex gap-4;
+    @apply relative w-full flex gap-6 snap-x overflow-x-auto mt-2 px-4 py-4 lg:px-8;
 
     .event-item {
-      @apply max-w-lg;
+      @apply w-2/3 lg:max-w-md snap-center shrink-0;
     }
   }
 </style>

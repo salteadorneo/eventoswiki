@@ -1,3 +1,5 @@
+import type { SupabaseEventCategoryDto } from './supabase-event-category.dto'
+
 export interface SupabaseEventDto {
   slug: string
   name: string
@@ -8,4 +10,5 @@ export interface SupabaseEventDto {
   color: string
   starts_at: string
   ends_at: string
+  categories: Array<SupabaseEventCategoryDto>
 }

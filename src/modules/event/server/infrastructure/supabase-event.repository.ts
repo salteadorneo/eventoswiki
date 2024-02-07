@@ -10,7 +10,7 @@ import { SupabaseEventMapper } from './mappers/supabase-event.mapper'
 
 export class SupabaseEventRepository extends SupabaseDatabaseRepository implements EventRepository {
   constructor(supabase: SupabaseClient) {
-    super(supabase, 'event')
+    super(supabase, 'events')
   }
 
   async findAll() {
@@ -24,7 +24,7 @@ export class SupabaseEventRepository extends SupabaseDatabaseRepository implemen
   }
 
   async match(criteria: EventCriteria): Promise<Event[]> {
-    const query = this.from().select()
+    const query = this.from().select('*, categories(name)')
     if (criteria.filters) {
       Object.entries(SupabaseEventFiltersMapper.toDto(criteria.filters)).forEach(([key, filter]) => {
         if (!filter) return

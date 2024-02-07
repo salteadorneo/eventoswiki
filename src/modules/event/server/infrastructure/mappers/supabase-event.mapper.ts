@@ -13,6 +13,7 @@ export class SupabaseEventMapper {
       cover: supabaseEventDto.cover,
       updatedAt: supabaseEventDto.updated_at,
       color: supabaseEventDto.color,
+      categories: supabaseEventDto.categories.map(category => category.name),
     })
   }
 

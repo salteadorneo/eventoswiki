@@ -3,7 +3,7 @@ import { EventLocator } from '@event/server/di/event.locator'
 import EventHorizontalList from '../event-list/event-horizontal-list.astro'
 
 const getNextEventsQuery = EventLocator.getNextEventsQuery()
-const events = await getNextEventsQuery.execute({ count: 3 })
+const events = await getNextEventsQuery.execute({ count: 10 })
 ---
 
-<EventHorizontalList title="Próximos eventos" events={events} />
+<EventHorizontalList id="proximos-eventos" title="Próximos eventos" events={events} />

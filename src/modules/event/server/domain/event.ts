@@ -1,4 +1,5 @@
 import { Aggregate } from '@/shared/domain/ddd/aggregate'
+import { EventCategories } from './value-objects/event-categories'
 import { EventColor } from './value-objects/event-color'
 import { EventContent } from './value-objects/event-content'
 import { EventCover } from './value-objects/event-cover'
@@ -18,6 +19,7 @@ interface EventPrimitives {
   cover: string
   updatedAt: string
   color: string
+  categories: Array<string>
 }
 
 export class Event extends Aggregate<EventSlug> {
@@ -30,6 +32,7 @@ export class Event extends Aggregate<EventSlug> {
     private readonly cover: EventCover,
     private readonly updatedAt: EventUpdatedAt,
     private readonly color: EventColor,
+    private readonly categories: EventCategories,
   ) {
     super(slug)
   }
@@ -47,6 +50,7 @@ export class Event extends Aggregate<EventSlug> {
       new EventCover(primitives.cover),
       new EventUpdatedAt(new Date(primitives.updatedAt)),
       new EventColor(primitives.color),
+      new EventCategories(primitives.categories),
     )
   }
 
@@ -61,6 +65,7 @@ export class Event extends Aggregate<EventSlug> {
       cover: this.cover.value,
       updatedAt: this.updatedAt.value.toISOString(),
       color: this.color.value,
+      categories: this.categories?.value,
     }
   }
 
@@ -70,6 +75,26 @@ export class Event extends Aggregate<EventSlug> {
 
   getShortDescription(): string {
     return this.shortDescription.value
+  }
+
+  getCover(): string {
+    return this.cover.value
+  }
+
+  getColor(): string {
+    return this.color.value
+  }
+
+  getId(): string {
+    return this.id.value
+  }
+
+  getCategories(): Array<string> {
+    return this.categories?.value || []
+  }
+
+  getPeriodString(): string {
+    return this.period.getPeriodString()
   }
 
   get path(): string {

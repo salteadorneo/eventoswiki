@@ -1,6 +1,7 @@
 ---
-import { Button } from '@/shared/ui/components/common/button.component'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/ui/components/common/card.component'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/components/common/card.component'
+import { Badge } from '@ui/components/common/badge.component'
+import { Calendar } from '@ui/icons'
 import { Urls } from '@ui/urls/urls'
 import type { Event } from '../../../domain/event'
 
@@ -11,16 +12,70 @@ interface Props {
 const { event } = Astro.props
 ---
 
-<Card>
-  <CardHeader>
-    <CardTitle>{event.getName()}</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <p>{event.getShortDescription()}</p>
-  </CardContent>
-  <CardFooter>
-    <Button asChild>
-      <a href={Urls.EVENT(event.path)}>Ver detalles</a>
-    </Button>
-  </CardFooter>
-</Card>
+<a href={Urls.EVENT(event.path)}>
+  <Card className="event-card">
+    <img
+      class="event-cover"
+      src={event.getCover()}
+      alt={`Imagen del evento ${event.getName()}`}
+      aria-hidden
+      loading="lazy"
+    />
+    <CardHeader className="event-header">
+      <ul>
+        {
+          event.getCategories().map(category => (
+            <li>
+              <Badge variant={'custom'} color={event.getColor()}>
+                {category}
+              </Badge>
+            </li>
+          ))
+        }
+      </ul>
+      <CardContent className="event-content">
+        <CardTitle>{event.getName()}</CardTitle>
+        <p class="event-description">{event.getShortDescription()}</p>
+        <div class="event-period">
+          <Calendar className="text-2xl" />
+          <p>
+            {event.getPeriodString()}
+          </p>
+        </div>
+      </CardContent>
+    </CardHeader>
+  </Card>
+
+  <style>
+    .event-card {
+      @apply transition-shadow duration-300 overflow-hidden h-full flex flex-col hover:shadow-lg;
+    }
+
+    .event-cover {
+      @apply h-32 object-cover w-full lg:h-56;
+    }
+
+    .event-header {
+      @apply p-0;
+
+      ul {
+        @apply pl-4 flex gap-2 -translate-y-3 overflow-x-auto uppercase;
+      }
+    }
+
+    .event-content {
+      @apply mt-0 pb-4 flex flex-col gap-4;
+
+      .event-period {
+        @apply flex items-center gap-1 text-gray-400;
+
+        p {
+          @apply text-sm uppercase;
+        }
+      }
+      .event-description {
+        @apply flex-1 line-clamp-2;
+      }
+    }
+  </style>
+</a>
