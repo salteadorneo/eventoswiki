@@ -33,17 +33,17 @@ const { event } = Astro.props
           ))
         }
       </ul>
-      <CardContent className="event-content">
-        <CardTitle>{event.getName()}</CardTitle>
-        <p class="event-description">{event.getShortDescription()}</p>
-        <div class="event-period">
-          <Calendar className="text-2xl" />
-          <p>
-            {event.getPeriodString()}
-          </p>
-        </div>
-      </CardContent>
     </CardHeader>
+    <CardContent className="event-content">
+      <CardTitle>{event.getName()}</CardTitle>
+      <p class="event-description">{event.getShortDescription()}</p>
+      <div class="event-period">
+        <Calendar className="text-2xl" />
+        <p>
+          {event.getPeriodString()}
+        </p>
+      </div>
+    </CardContent>
   </Card>
 
   <style>
@@ -64,7 +64,7 @@ const { event } = Astro.props
     }
 
     .event-content {
-      @apply mt-0 pb-4 flex flex-col gap-4;
+      @apply mt-0 pb-4 flex flex-col flex-1 gap-4;
 
       .event-period {
         @apply flex items-center gap-1 text-gray-400;
@@ -74,7 +74,7 @@ const { event } = Astro.props
         }
       }
       .event-description {
-        @apply flex-1 line-clamp-2;
+        @apply flex-1 line-clamp-3 lg:line-clamp-2;
       }
     }
   </style>
