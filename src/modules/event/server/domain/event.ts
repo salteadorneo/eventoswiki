@@ -3,11 +3,13 @@ import { EventCategories } from './value-objects/event-categories'
 import { EventColor } from './value-objects/event-color'
 import { EventContent } from './value-objects/event-content'
 import { EventCover } from './value-objects/event-cover'
+import { EventLocation } from './value-objects/event-location'
 import { EventName } from './value-objects/event-name'
 import { EventPeriod } from './value-objects/event-period'
 import { EventShortDescription } from './value-objects/event-short-description'
 import { EventSlug } from './value-objects/event-slug'
 import { EventThumbnail } from './value-objects/event-thumbnail'
+import { EventType, EventTypes } from './value-objects/event-type'
 import { EventUpdatedAt } from './value-objects/event-updated-at'
 
 interface EventPrimitives {
@@ -21,6 +23,8 @@ interface EventPrimitives {
   thumbnail: string
   updatedAt: string
   color: string
+  type: EventTypes
+  location: string
   categories: Array<string>
 }
 
@@ -35,6 +39,8 @@ export class Event extends Aggregate<EventSlug> {
     private readonly thumbnail: EventThumbnail,
     private readonly updatedAt: EventUpdatedAt,
     private readonly color: EventColor,
+    private readonly type: EventType,
+    private readonly location: EventLocation,
     private readonly categories: EventCategories,
   ) {
     super(slug)
@@ -54,6 +60,8 @@ export class Event extends Aggregate<EventSlug> {
       new EventThumbnail(primitives.thumbnail),
       new EventUpdatedAt(new Date(primitives.updatedAt)),
       new EventColor(primitives.color),
+      new EventType(primitives.type),
+      new EventLocation(primitives.location),
       new EventCategories(primitives.categories),
     )
   }
@@ -70,8 +78,14 @@ export class Event extends Aggregate<EventSlug> {
       thumbnail: this.thumbnail.value,
       updatedAt: this.updatedAt.value.toISOString(),
       color: this.color.value,
+      type: this.type.value,
+      location: this.location.value,
       categories: this.categories?.value,
     }
+  }
+
+  getId(): string {
+    return this.id.value
   }
 
   getName(): string {
@@ -94,8 +108,8 @@ export class Event extends Aggregate<EventSlug> {
     return this.color.value
   }
 
-  getId(): string {
-    return this.id.value
+  getLocation(): string {
+    return this.location.value
   }
 
   getCategories(): Array<string> {
@@ -108,5 +122,9 @@ export class Event extends Aggregate<EventSlug> {
 
   get path(): string {
     return this.slug.value
+  }
+
+  isOnline(): boolean {
+    return this.type.isOnline()
   }
 }

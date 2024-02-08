@@ -9,6 +9,8 @@ export interface SupabaseEventDto {
   cover: string
   thumbnail: string
   color: string
+  location: string
+  type: string
   starts_at: string
   ends_at: string
   categories: Array<SupabaseEventCategoryDto>
