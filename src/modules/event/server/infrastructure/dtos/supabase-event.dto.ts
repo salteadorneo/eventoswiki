@@ -7,6 +7,7 @@ export interface SupabaseEventDto {
   content: string
   updated_at: string
   cover: string
+  thumbnail: string
   color: string
   starts_at: string
   ends_at: string

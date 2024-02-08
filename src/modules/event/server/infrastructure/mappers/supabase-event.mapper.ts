@@ -11,6 +11,7 @@ export class SupabaseEventMapper {
       startsAt: supabaseEventDto.starts_at,
       endsAt: supabaseEventDto.ends_at,
       cover: supabaseEventDto.cover,
+      thumbnail: supabaseEventDto.thumbnail,
       updatedAt: supabaseEventDto.updated_at,
       color: supabaseEventDto.color,
       categories: supabaseEventDto.categories.map(category => category.name),

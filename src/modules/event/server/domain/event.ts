@@ -7,6 +7,7 @@ import { EventName } from './value-objects/event-name'
 import { EventPeriod } from './value-objects/event-period'
 import { EventShortDescription } from './value-objects/event-short-description'
 import { EventSlug } from './value-objects/event-slug'
+import { EventThumbnail } from './value-objects/event-thumbnail'
 import { EventUpdatedAt } from './value-objects/event-updated-at'
 
 interface EventPrimitives {
@@ -17,6 +18,7 @@ interface EventPrimitives {
   startsAt: string
   endsAt: string
   cover: string
+  thumbnail: string
   updatedAt: string
   color: string
   categories: Array<string>
@@ -30,6 +32,7 @@ export class Event extends Aggregate<EventSlug> {
     private readonly content: EventContent,
     private readonly period: EventPeriod,
     private readonly cover: EventCover,
+    private readonly thumbnail: EventThumbnail,
     private readonly updatedAt: EventUpdatedAt,
     private readonly color: EventColor,
     private readonly categories: EventCategories,
@@ -48,6 +51,7 @@ export class Event extends Aggregate<EventSlug> {
         endsAt: new Date(primitives.endsAt),
       }),
       new EventCover(primitives.cover),
+      new EventThumbnail(primitives.thumbnail),
       new EventUpdatedAt(new Date(primitives.updatedAt)),
       new EventColor(primitives.color),
       new EventCategories(primitives.categories),
@@ -63,6 +67,7 @@ export class Event extends Aggregate<EventSlug> {
       startsAt: this.period.value.startsAt.toISOString(),
       endsAt: this.period.value.endsAt.toISOString(),
       cover: this.cover.value,
+      thumbnail: this.thumbnail.value,
       updatedAt: this.updatedAt.value.toISOString(),
       color: this.color.value,
       categories: this.categories?.value,
@@ -79,6 +84,10 @@ export class Event extends Aggregate<EventSlug> {
 
   getCover(): string {
     return this.cover.value
+  }
+
+  getThumbnail(): string {
+    return this.thumbnail.value
   }
 
   getColor(): string {
