@@ -69,18 +69,18 @@ const { event } = Astro.props
       @apply p-0;
 
       ul {
-        @apply flex -translate-y-3 gap-2 overflow-x-auto pl-4 uppercase;
+        @apply flex -translate-y-3 gap-2 overflow-x-auto pl-2 uppercase lg:pl-4;
       }
     }
 
     .event-content {
-      @apply mt-0 flex flex-1 flex-col gap-4 pb-4;
+      @apply mt-0 flex flex-1 flex-col gap-4 px-4 pb-4 md:px-6;
 
       .event-info {
-        @apply flex items-center justify-between gap-4 text-card-foreground;
+        @apply flex items-center justify-between gap-2 text-card-foreground md:gap-4;
 
         .event-info-icon {
-          @apply text-2xl;
+          @apply text-lg md:text-2xl;
         }
 
         .event-info-item {

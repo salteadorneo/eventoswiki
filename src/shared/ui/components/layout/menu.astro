@@ -1,42 +1,47 @@
 ---
-import { PiCalendar, PiChalkboard, PiUsersFour } from 'react-icons/pi'
+import { PiCalendar, PiChalkboard } from 'react-icons/pi'
 
-import Link from '../common/link.astro'
+import { Urls } from '@ui/urls/urls'
+import { Link } from '../common/link.component.tsx'
 ---
 
 <nav class="desktop-menu">
   <ul class="menu-list">
-    <li><Link href="/">Eventos</Link></li>
-    <li><Link href="/">Meetups</Link></li>
-    <li><Link href="/">Calendario</Link></li>
+    <li><Link href={Urls.EVENTS(1)}>Eventos</Link></li>
+    <!-- <li><Link href="/">Meetups</Link></li> -->
+    <li><Link href={Urls.CALENDAR}>Calendario</Link></li>
   </ul>
 </nav>
 
 <nav class="mobile-menu">
   <ul class="menu-list">
-    <li><Link linkClass="mobile-link" href="/"><PiChalkboard className="link-icon" />Eventos</Link></li>
-    <li><Link linkClass="mobile-link" href="/"><PiUsersFour className="link-icon" />Meetups</Link></li>
-    <li><Link linkClass="mobile-link" href="/"><PiCalendar className="link-icon" />Calendario</Link></li>
+    <li>
+      <Link className="mobile-link" href={Urls.EVENTS(1)}>
+        <PiChalkboard className="link-icon" />Eventos
+      </Link>
+    </li>
+    <!-- <li><Link linkClass="mobile-link" href="/"><PiUsersFour className="link-icon" />Meetups</Link></li> -->
+    <li><Link className="mobile-link" href={Urls.CALENDAR}><PiCalendar className="link-icon" />Calendario</Link></li>
   </ul>
 </nav>
 
 <style>
   .desktop-menu {
-    @apply hidden flex-1 justify-end p-4 md:flex;
+    @apply hidden flex-1 p-4 md:block;
 
-    & .menu-list {
-      @apply flex gap-6;
+    .menu-list {
+      @apply mx-auto flex w-full justify-center;
     }
   }
 
   .mobile-menu {
-    @apply bg-accent text-accent-foreground fixed z-20 bottom-0 left-0 w-full p-4 pb-8 border md:hidden;
+    @apply fixed bottom-0 left-0 z-20 h-min w-full border bg-accent pb-6 pt-4 text-accent-foreground md:hidden;
 
     .menu-list {
-      @apply flex flex-row justify-between;
+      @apply flex flex-row justify-around;
 
       .mobile-link {
-        @apply flex flex-col items-center justify-center font-medium text-sm;
+        @apply grid grid-rows-2 place-content-center place-items-center gap-4 text-sm font-medium;
       }
 
       .link-icon {

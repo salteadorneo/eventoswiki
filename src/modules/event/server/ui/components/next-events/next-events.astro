@@ -1,9 +1,13 @@
 ---
 import { EventLocator } from '@event/server/di/event.locator'
+import { Link } from '@ui/components/common/link.component'
+import { Urls } from '@ui/urls/urls'
 import EventHorizontalList from '../event-list/event-horizontal-list.astro'
 
 const getNextEventsQuery = EventLocator.getNextEventsQuery()
 const events = await getNextEventsQuery.execute({ count: 10 })
 ---
 
-<EventHorizontalList id="proximos-eventos" title="Próximos eventos" events={events} />
+<EventHorizontalList title="Próximos eventos" events={events}>
+  <Link slot="action" href={Urls.EVENTS(1)}>Ver todos</Link>
+</EventHorizontalList>

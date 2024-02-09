@@ -57,7 +57,7 @@ export class SupabaseEventRepository extends SupabaseDatabaseRepository implemen
     }
 
     if (criteria.offset && criteria.limit) {
-      query.range(criteria.offset, criteria.limit)
+      query.range(criteria.offset, criteria.offset + criteria.limit)
     } else if (criteria.limit) {
       query.limit(criteria.limit)
     }

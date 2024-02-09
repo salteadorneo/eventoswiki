@@ -44,7 +44,7 @@ export class Datetime {
     if (!dateA || !dateB) return false
 
     const today = dayjs()
-    return dayjs(dateA).isSame(today, 'day')
+    return dayjs(dateA).isSame(dateB, 'day')
   }
 
   static isAfterYesterday(date: ValidDate): boolean {

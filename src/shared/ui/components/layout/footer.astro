@@ -1,0 +1,42 @@
+---
+import { GithubFill, TwitterFill } from '../../icons'
+import Logo from './logo.astro'
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <Logo />
+    <p class="footer-message">
+      Made with ❤️ by <a href="https://albertochamorro.dev" target="_blank" rel="nofollow">@achamorro_dev</a>
+    </p>
+    <span class="footer-links">
+      <a href="https://twitter.com/eventos_wiki" target="_blank" class="footer-link" rel="nofollow">
+        <span class="sr-only">Twitter</span>
+        <TwitterFill />
+      </a>
+
+      <a href="https://github.com/achamorro-dev/eventoswiki" rel="nofollow" target="_blank" class="footer-link">
+        <span class="sr-only">GitHub</span>
+        <GithubFill />
+      </a>
+    </span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    @apply border-t border-gray-200 bg-white pb-24 text-gray-700 dark:border-transparent dark:bg-slate-900 md:pb-0;
+  }
+  .footer-container {
+    @apply container mx-auto flex max-w-7xl flex-col items-center px-8 py-8 sm:flex-row;
+  }
+  .footer-message {
+    @apply mt-4 text-sm text-gray-500 dark:text-gray-300 sm:ml-4 sm:mt-0 sm:border-l sm:border-gray-200 sm:pl-4;
+  }
+  .footer-links {
+    @apply mt-4 inline-flex justify-center space-x-5 sm:ml-auto sm:mt-0 sm:justify-start;
+  }
+  .footer-link {
+    @apply text-gray-400 hover:text-gray-500;
+  }
+</style>

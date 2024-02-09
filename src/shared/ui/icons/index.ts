@@ -1,7 +1,18 @@
 export {
   PiCalendar as Calendar,
+  PiCaretLeft as CaretLeft,
+  PiCaretRight as CaretRight,
+  PiFacebookLogo as Facebook,
+  PiGithubLogo as Github,
+  PiGithubLogoFill as GithubFill,
+  PiDotsThree as HorizontalDots,
+  PiInstagramLogo as Instagram,
+  PiLinkedinLogo as Linkedin,
   PiMapPin as MapPin,
   PiMoonStars as MoonStars,
   PiSun as Sun,
+  PiTwitterLogo as Twitter,
+  PiTwitterLogoFill as TwitterFill,
   PiVideo as Video,
+  PiYoutubeLogo as Youtube,
 } from 'react-icons/pi'

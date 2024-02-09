@@ -1,27 +1,36 @@
 ---
-import { EventLocator } from '../../../di/event.locator'
+import type { Event } from '@event/server/domain/event'
+import { Heading } from '@ui/components/common/heading.component'
 import EventCard from '../event-card/event-card.astro'
 
-const getEventsQuery = EventLocator.getEventsQuery()
-const events = await getEventsQuery.execute()
+interface Props {
+  title: string
+  events: Array<Event>
+}
+const { events, title } = Astro.props
 ---
 
-<ul class="event-grid">
-  {
-    events.map(event => (
-      <li>
-        <EventCard event={event} />
-      </li>
-    ))
-  }
-</ul>
+<article>
+  <header class="header">
+    <Heading as="h1">{title}</Heading>
+    <slot name="action" />
+  </header>
+  <ul class="event-grid">
+    {
+      events.map(event => (
+        <li>
+          <EventCard event={event} />
+        </li>
+      ))
+    }
+  </ul>
+</article>
 
 <style>
+  .header {
+    @apply flex items-center justify-between;
+  }
   .event-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 1rem;
-    list-style: none;
-    padding: 0;
+    @apply grid list-none grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 p-0 py-4 lg:py-8;
   }
 </style>

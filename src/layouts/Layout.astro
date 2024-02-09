@@ -1,6 +1,8 @@
 ---
 import BaseHead from '@/shared/ui/components/layout/base-head.astro'
+import Footer from '@/shared/ui/components/layout/footer.astro'
 import Header from '@/shared/ui/components/layout/header.astro'
+import '@ui/styles/globals.css'
 
 interface Props {
   title: string
@@ -15,11 +17,18 @@ const { title } = Astro.props
     <BaseHead title={title} />
   </head>
   <body>
-    <Header />
-    <slot />
+    <Header transition:persist />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
     <style>
       body {
-        @apply pb-24 md:pb-4;
+        @apply flex flex-col;
+      }
+      main {
+        @apply flex-1;
       }
     </style>
   </body>

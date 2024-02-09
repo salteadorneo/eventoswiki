@@ -53,6 +53,16 @@
   * {
     @apply border-border;
   }
+
+  html,
+  body {
+    @apply h-full;
+  }
+
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

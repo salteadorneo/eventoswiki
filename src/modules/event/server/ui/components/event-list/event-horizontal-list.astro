@@ -1,8 +1,7 @@
 ---
-import Title from '@ui/components/common/title.astro'
+import { Heading } from '@ui/components/common/heading.component'
 import { Event } from '../../../domain/event'
 import EventCard from '../event-card/event-card.astro'
-
 interface Props {
   title: string
   events: Event[]
@@ -13,7 +12,10 @@ const { title, events, id } = Astro.props
 ---
 
 <section id={id} class="events-horizontal-list">
-  <Title class="list-title">{title}</Title>
+  <header class="header">
+    <Heading className="list-title">{title}</Heading>
+    <slot name="action" />
+  </header>
   <ul class="event-list">
     {
       events.map(event => (
@@ -30,15 +32,19 @@ const { title, events, id } = Astro.props
     @apply my-2 md:my-4;
   }
 
+  .header {
+    @apply flex items-center justify-between;
+  }
+
   .list-title {
     @apply ml-4 lg:ml-8;
   }
 
   .event-list {
-    @apply relative w-full flex gap-6 snap-x overflow-x-auto mt-2 px-4 py-4 lg:px-8;
+    @apply relative mt-2 flex w-full snap-x gap-6 overflow-x-auto px-4 py-4 lg:px-8;
 
     .event-item {
-      @apply w-[80%] md:max-w-md snap-center shrink-0;
+      @apply w-[80%] shrink-0 snap-center md:max-w-md;
     }
   }
 </style>

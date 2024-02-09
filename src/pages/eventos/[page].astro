@@ -1,0 +1,46 @@
+---
+import Layout from '@/layouts/layout.astro'
+import { EventLocator } from '@event/server/di/event.locator'
+import { Event } from '@event/server/domain/event'
+import EventList from '@event/server/ui/components/event-list/event-list.astro'
+import { Link } from '@ui/components/common/link.component'
+import { PaginationControls } from '@ui/components/common/pagination-controls.component'
+import { Urls } from '@ui/urls/urls'
+import type { PaginateFunction } from 'astro'
+
+export const prerender = true
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+  const getAllEventsQuery = EventLocator.getAllNextEventsQuery()
+  const events = await getAllEventsQuery.execute()
+
+  return paginate(events, { pageSize: 2 })
+}
+
+const { page } = Astro.props as {
+  page: { url: { next: string; prev: string }; data: Array<Event>; currentPage: number; lastPage: number }
+}
+---
+
+<Layout title="Eventos">
+  <article class="events-page">
+    <EventList title="Eventos" events={page.data}>
+      <Link slot="action" href={Urls.PAST_EVENTS(1)}>Eventos pasados</Link>
+    </EventList>
+
+    <PaginationControls
+      nextPageLink={page.url.next}
+      previousPageLink={page.url.prev}
+      totalPages={page.lastPage}
+      generatePageLink={Urls.EVENTS}
+      page={page.currentPage}
+      className="py-4"
+    />
+  </article>
+</Layout>
+
+<style>
+  .events-page {
+    @apply container grid h-full grid-rows-[1fr,auto] px-4 lg:px-8;
+  }
+</style>
