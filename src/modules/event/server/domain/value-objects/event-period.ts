@@ -9,4 +9,8 @@ export class EventPeriod extends ValueObject<{ startsAt: Date; endsAt: Date }> {
 
     return `${Datetime.toDateString(this.value.startsAt)} - ${Datetime.toDateString(this.value.endsAt)}`
   }
+
+  getPeriodWithTimeString(): string {
+    return `${Datetime.toDateTimeString(this.value.startsAt)} - ${Datetime.toDateTimeString(this.value.endsAt)}`
+  }
 }

@@ -1,0 +1,37 @@
+---
+import EventLayout from '@/layouts/event-layout.astro'
+import { EventLocator } from '@event/server/di/event.locator'
+import { Event } from '@event/server/domain/event'
+import { EventDetails } from '@event/server/ui/components/event-details/event-details.component'
+import { Urls } from '@ui/urls/urls'
+import { marked } from 'marked'
+
+export const prerender = false
+
+let event: Event | null = null
+let content = ''
+try {
+  const getEventQuery = EventLocator.getEventQuery()
+  const slug = Astro.params.slug
+
+  if (slug === undefined) {
+    Astro.redirect(Urls.HOME)
+    return
+  }
+
+  event = await getEventQuery.execute({ slug })
+  content = await marked.parse(event.getContent())
+} catch (error) {
+  console.error(error)
+}
+---
+
+{
+  event === null ? (
+    <h1>Event not found</h1>
+  ) : (
+    <EventLayout event={event}>
+      <EventDetails content={content} client:load />
+    </EventLayout>
+  )
+}

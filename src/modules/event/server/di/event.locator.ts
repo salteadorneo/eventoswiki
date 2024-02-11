@@ -1,6 +1,7 @@
 import { SupabaseClient } from '@/shared/infrastructure/supabase/supabase-client'
 import { GetAllNextEventsQuery } from '../application/get-all-next-events.query'
-import { GetAllPastEventsQuery } from '../application/get-all-past-events.query copy'
+import { GetAllPastEventsQuery } from '../application/get-all-past-events.query'
+import { GetEventQuery } from '../application/get-event.query'
 import { GetLastEventsQuery } from '../application/get-last-events.query'
 import { GetNextEventsQuery } from '../application/get-next-events.query'
 import { SupabaseEventRepository } from '../infrastructure/supabase-event.repository'
@@ -24,5 +25,9 @@ export class EventLocator {
 
   static getAllPastEventsQuery = () => {
     return new GetAllPastEventsQuery(this.repository())
+  }
+
+  static getEventQuery = () => {
+    return new GetEventQuery(this.repository())
   }
 }

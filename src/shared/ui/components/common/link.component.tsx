@@ -12,7 +12,7 @@ export const Link: FC<PropsWithChildren<Props>> = props => {
 
   return (
     <Button variant="ghost" asChild>
-      <a className={cn(className)} href={href}>
+      <a className={cn({ 'text-primary': selected }, className)} href={href}>
         {children}
       </a>
     </Button>

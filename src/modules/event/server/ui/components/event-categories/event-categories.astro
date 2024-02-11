@@ -1,0 +1,28 @@
+---
+import { Badge } from '@ui/components/common/badge.component'
+import { Event } from '../../../domain/event'
+
+interface Props {
+  event: Event
+}
+
+const { event } = Astro.props
+---
+
+<ul class="categories">
+  {
+    event.getCategories().map(category => (
+      <li>
+        <Badge variant={'custom'} color={event.getColor()}>
+          {category}
+        </Badge>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .categories {
+    @apply flex list-none gap-2 overflow-x-auto uppercase;
+  }
+</style>

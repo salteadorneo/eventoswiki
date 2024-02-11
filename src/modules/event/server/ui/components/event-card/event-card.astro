@@ -4,6 +4,7 @@ import { Badge } from '@ui/components/common/badge.component'
 import { Calendar, MapPin, Video } from '@ui/icons'
 import { Urls } from '@ui/urls/urls'
 import type { Event } from '../../../domain/event'
+import EventCategories from '../event-categories/event-categories.astro'
 
 interface Props {
   event: Event
@@ -12,7 +13,7 @@ interface Props {
 const { event } = Astro.props
 ---
 
-<a href={Urls.EVENT(event.path)}>
+<a href={Urls.EVENT(event.getId())}>
   <Card className="event-card">
     <img
       id="event-image"
@@ -24,17 +25,7 @@ const { event } = Astro.props
       onerror="this.src = '/not-found.jpg'"
     />
     <CardHeader className="event-header">
-      <ul>
-        {
-          event.getCategories().map(category => (
-            <li>
-              <Badge variant={'custom'} color={event.getColor()}>
-                {category}
-              </Badge>
-            </li>
-          ))
-        }
-      </ul>
+      <EventCategories event={event} />
     </CardHeader>
     <CardContent className="event-content">
       <CardTitle>{event.getName()}</CardTitle>
@@ -62,25 +53,21 @@ const { event } = Astro.props
     }
 
     .event-thumbnail {
-      @apply h-32 w-full object-cover lg:h-56;
+      @apply h-56 w-full object-cover;
     }
 
     .event-header {
-      @apply p-0;
-
-      ul {
-        @apply flex -translate-y-3 gap-2 overflow-x-auto pl-2 uppercase lg:pl-4;
-      }
+      @apply -translate-y-3 p-0 pl-2 lg:pl-4;
     }
 
     .event-content {
       @apply mt-0 flex flex-1 flex-col gap-4 px-4 pb-4 md:px-6;
 
       .event-info {
-        @apply flex items-center justify-between gap-2 text-card-foreground md:gap-4;
+        @apply flex flex-col gap-2 text-card-foreground md:flex-row md:items-center md:justify-between md:gap-4;
 
         .event-info-icon {
-          @apply text-lg md:text-2xl;
+          @apply text-xl md:text-2xl;
         }
 
         .event-info-item {

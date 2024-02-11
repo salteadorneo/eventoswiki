@@ -3,25 +3,36 @@ import { PiCalendar, PiChalkboard } from 'react-icons/pi'
 
 import { Urls } from '@ui/urls/urls'
 import { Link } from '../common/link.component.tsx'
+
+const pathname = Astro.url.pathname
+
+const urlSections = {
+  EVENTS: '/evento',
+  CALENDAR: '/calendario',
+}
 ---
 
 <nav class="desktop-menu">
   <ul class="menu-list">
-    <li><Link href={Urls.EVENTS(1)}>Eventos</Link></li>
+    <li><Link selected={pathname.includes(urlSections.EVENTS)} href={Urls.EVENTS(1)}>Eventos</Link></li>
     <!-- <li><Link href="/">Meetups</Link></li> -->
-    <li><Link href={Urls.CALENDAR}>Calendario</Link></li>
+    <li><Link selected={pathname.includes(urlSections.CALENDAR)} href={Urls.CALENDAR}>Calendario</Link></li>
   </ul>
 </nav>
 
 <nav class="mobile-menu">
   <ul class="menu-list">
     <li>
-      <Link className="mobile-link" href={Urls.EVENTS(1)}>
+      <Link selected={pathname.includes(urlSections.EVENTS)} className="mobile-link" href={Urls.EVENTS(1)}>
         <PiChalkboard className="link-icon" />Eventos
       </Link>
     </li>
     <!-- <li><Link linkClass="mobile-link" href="/"><PiUsersFour className="link-icon" />Meetups</Link></li> -->
-    <li><Link className="mobile-link" href={Urls.CALENDAR}><PiCalendar className="link-icon" />Calendario</Link></li>
+    <li>
+      <Link selected={pathname.includes(urlSections.CALENDAR)} className="mobile-link" href={Urls.CALENDAR}>
+        <PiCalendar className="link-icon" />Calendario
+      </Link>
+    </li>
   </ul>
 </nav>
 

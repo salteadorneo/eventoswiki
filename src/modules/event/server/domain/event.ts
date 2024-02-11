@@ -120,6 +120,14 @@ export class Event extends Aggregate<EventSlug> {
     return this.period.getPeriodString()
   }
 
+  getPeriodWithTimeString(): string {
+    return this.period.getPeriodWithTimeString()
+  }
+
+  getContent(): string {
+    return this.content.value
+  }
+
   get path(): string {
     return this.slug.value
   }

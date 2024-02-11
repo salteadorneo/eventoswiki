@@ -3,6 +3,7 @@ import { SupabaseDatabaseRepository } from '@/shared/infrastructure/supabase/sup
 import type { EventCriteria } from '../domain/criterias/event-criteria'
 import type { Event } from '../domain/event'
 import type { EventRepository } from '../domain/repositories/event-repository'
+import type { EventSlug } from '../domain/value-objects/event-slug'
 import type { SupabaseEventDto } from './dtos/supabase-event.dto'
 import { SupabaseEventFiltersMapper } from './mappers/supabase-event-filters.mapper'
 import { SupabaseEventOrderMapper } from './mappers/supabase-event-order.mapper'
@@ -68,5 +69,15 @@ export class SupabaseEventRepository extends SupabaseDatabaseRepository implemen
     }
 
     return SupabaseEventMapper.toDomainList(data as SupabaseEventDto[])
+  }
+
+  async find(id: EventSlug): Promise<Event> {
+    const { data, error } = await this.from().select('*, categories(name)').eq('slug', id.value)
+
+    if (error?.code || !data?.length) {
+      throw new EventNotFoundError(id.value)
+    }
+
+    return SupabaseEventMapper.toDomain(data[0] as SupabaseEventDto)
   }
 }

@@ -1,0 +1,87 @@
+---
+import EventCategories from '@event/server/ui/components/event-categories/event-categories.astro'
+import '@ui/styles/globals.css'
+import { Event } from '../modules/event/server/domain/event'
+import BaseHead from '../shared/ui/components/layout/base-head.astro'
+import Footer from '../shared/ui/components/layout/footer.astro'
+import Header from '../shared/ui/components/layout/header.astro'
+import { Urls } from '../shared/ui/urls/urls'
+import { Calendar, MapPin, Video } from '@ui/icons'
+
+interface Props {
+  event: Event
+}
+
+const { event } = Astro.props
+---
+
+<!doctype html>
+<html lang="es">
+  <BaseHead
+    title={`${event.getName()} - eventos.wiki`}
+    description={event.getShortDescription()}
+    image={event.getCover()}
+    url={`https://eventos.wiki${Urls.EVENT(event.getId())}`}
+  />
+  <body>
+    <Header />
+    <article class="event-header">
+      <img
+        id="event-image"
+        src={event.getCover()}
+        alt={`Foto de portada del evento ${event.getName()}`}
+        class="absolute w-full h-full object-cover shadow-md bg-white"
+      />
+      <div aria-hidden class="event-header-overlay"></div>
+      <div class="event-header-info">
+        <EventCategories event={event} />
+        <h1 class="text-4xl font-medium text-white" tabindex={0}>
+          {event.getName()}
+        </h1>
+        <p class="event-info-item">
+          <Calendar className="event-info-icon" />
+          {event.getPeriodWithTimeString()}
+        </p>
+        <p class="event-info-item">
+          {event.isOnline() ? <Video className="event-info-icon" /> : <MapPin className="event-info-icon" />}
+          {event.getLocation()}
+        </p>
+      </div>
+    </article>
+
+    <main class="event-body">
+      <slot />
+    </main>
+    <Footer />
+    <style>
+      body {
+        @apply flex flex-col;
+      }
+      .event-header {
+        @apply relative h-72 shrink-0 bg-indigo-900;
+      }
+      .event-header-overlay {
+        @apply absolute bottom-0 left-0 h-52 w-full bg-gradient-to-t from-black;
+      }
+      .event-header-info {
+        @apply container absolute bottom-0 left-0 right-0 flex w-full flex-col gap-2 px-6 py-4 text-sm text-white xl:px-8;
+      }
+      .event-info-icon {
+        @apply text-xl;
+      }
+      .event-info-item {
+        @apply flex items-center gap-1;
+      }
+      .event-body {
+        @apply container mt-4 flex-grow px-4;
+      }
+    </style>
+    <script is:inline>
+      const eventImage = document.getElementById('event-image')
+
+      eventImage.addEventListener('error', function (event) {
+        eventImage.src = '/not-found.jpg'
+      })
+    </script>
+  </body>
+</html>

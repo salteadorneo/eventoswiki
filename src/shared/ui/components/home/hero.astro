@@ -21,22 +21,22 @@
 
 <style>
   .hero {
-    @apply container flex flex-col-reverse items-center px-4 py-5 mx-auto mt-px text-left md:grid md:grid-cols-2 md:px-8;
+    @apply container mx-auto mt-px flex flex-col-reverse items-center px-4 pb-10 pt-5 text-left md:grid md:grid-cols-2 md:px-8;
 
     .hero-text {
-      @apply font-extrabold leading-10 tracking-tight text-left sm:leading-none;
+      @apply text-pretty text-left text-5xl font-extrabold leading-10 tracking-tight sm:leading-none;
 
       .first-part {
-        @apply text-4xl text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary-foreground inline md:block md:pb-1 lg:text-5xl;
+        @apply inline bg-gradient-to-br from-primary to-secondary-foreground bg-clip-text text-transparent md:block md:pb-1;
       }
 
       .second-part {
-        @apply text-4xl relative text-black dark:text-white lg:text-5xl md:inline-block;
+        @apply relative text-black dark:text-white md:inline-block;
       }
     }
 
     .hero-image {
-      @apply w-full h-72 object-cover lg:h-[500px];
+      @apply h-72 w-full object-cover lg:h-[500px];
     }
   }
 </style>

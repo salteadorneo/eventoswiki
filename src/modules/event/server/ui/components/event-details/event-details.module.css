@@ -1,0 +1,3 @@
+.tab-content {
+  @apply my-4 lg:my-6;
+}
