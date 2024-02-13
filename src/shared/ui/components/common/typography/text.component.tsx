@@ -6,7 +6,7 @@ interface Props extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 export const Text: FC<PropsWithChildren<Props>> = props => {
   const { children, className, ...rest } = props
-  const classes = cn(styles.text, { className })
+  const classes = cn(styles.text, className)
 
   return (
     <p className={classes} {...rest}>

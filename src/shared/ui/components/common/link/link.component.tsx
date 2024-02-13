@@ -1,6 +1,6 @@
 import { cn } from '@ui/utils/shadcn/utils'
 import type { FC, PropsWithChildren } from 'react'
-import { Button } from './button.component'
+import { Button } from '../button/button.component'
 
 interface Props {
   href: string

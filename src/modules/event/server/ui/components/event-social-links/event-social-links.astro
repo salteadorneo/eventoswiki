@@ -1,0 +1,18 @@
+---
+import { SocialLink } from '../../../../../../shared/ui/components/common/link/social-link.component'
+import { EventSocialNetwork } from '../../../domain/value-objects/event-social-network'
+
+interface Props {
+  socialNetworks: Array<EventSocialNetwork>
+}
+
+const { socialNetworks } = Astro.props
+---
+
+<article class="flex gap-2">
+  {
+    socialNetworks.map(eventSocialNetwork => {
+      return <SocialLink socialNetwork={eventSocialNetwork.getSocialNetwork()} url={eventSocialNetwork.getUrl()} />
+    })
+  }
+</article>

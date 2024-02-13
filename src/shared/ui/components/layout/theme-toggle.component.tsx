@@ -1,12 +1,12 @@
 import { MoonStars, Sun } from '@ui/icons'
 import { useEffect, useState } from 'react'
-import { Button } from '../common/button.component'
+import { Button } from '../common/button/button.component'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../common/dropdown-menu.component'
+} from '../common/dropdown/dropdown-menu.component'
 
 export const ThemeToggle = () => {
   const [theme, setThemeState] = useState<'theme-light' | 'dark' | 'system'>('theme-light')

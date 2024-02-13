@@ -10,12 +10,14 @@ import { SupabaseEventOrderMapper } from './mappers/supabase-event-order.mapper'
 import { SupabaseEventMapper } from './mappers/supabase-event.mapper'
 
 export class SupabaseEventRepository extends SupabaseDatabaseRepository implements EventRepository {
+  private static EVENT_SELECT_QUERY = '*, categories(name), events_social_networks(*)'
+
   constructor(supabase: SupabaseClient) {
     super(supabase, 'events')
   }
 
   async findAll() {
-    const { data, error } = await this.from().select()
+    const { data, error } = await this.from().select(SupabaseEventRepository.EVENT_SELECT_QUERY)
 
     if (error?.code) {
       throw new Error(error.message)
@@ -25,7 +27,7 @@ export class SupabaseEventRepository extends SupabaseDatabaseRepository implemen
   }
 
   async match(criteria: EventCriteria): Promise<Event[]> {
-    const query = this.from().select('*, categories(name)')
+    const query = this.from().select(SupabaseEventRepository.EVENT_SELECT_QUERY)
     if (criteria.filters) {
       Object.entries(SupabaseEventFiltersMapper.toDto(criteria.filters)).forEach(([key, filter]) => {
         if (!filter) return
@@ -72,7 +74,7 @@ export class SupabaseEventRepository extends SupabaseDatabaseRepository implemen
   }
 
   async find(id: EventSlug): Promise<Event> {
-    const { data, error } = await this.from().select('*, categories(name)').eq('slug', id.value)
+    const { data, error } = await this.from().select(SupabaseEventRepository.EVENT_SELECT_QUERY).eq('slug', id.value)
 
     if (error?.code || !data?.length) {
       throw new EventNotFoundError(id.value)

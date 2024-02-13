@@ -1,4 +1,4 @@
-import type { Criteria } from '@/shared/domain/criteria'
+import type { Criteria } from '@/shared/domain/criteria/criteria'
 import type { EventFilters } from './event-filters'
 import type { EventOrder } from './event-order'
 

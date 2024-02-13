@@ -8,9 +8,12 @@ import { EventName } from './value-objects/event-name'
 import { EventPeriod } from './value-objects/event-period'
 import { EventShortDescription } from './value-objects/event-short-description'
 import { EventSlug } from './value-objects/event-slug'
+import type { EventSocialNetwork, EventSocialNetworkPrimitives } from './value-objects/event-social-network'
+import { EventSocialNetworks } from './value-objects/event-social-networks'
 import { EventThumbnail } from './value-objects/event-thumbnail'
 import { EventType, EventTypes } from './value-objects/event-type'
 import { EventUpdatedAt } from './value-objects/event-updated-at'
+import { EventWeb } from './value-objects/event-web'
 
 interface EventPrimitives {
   slug: string
@@ -26,6 +29,8 @@ interface EventPrimitives {
   type: EventTypes
   location: string
   categories: Array<string>
+  socialNetworks: Array<EventSocialNetworkPrimitives>
+  web?: string
 }
 
 export class Event extends Aggregate<EventSlug> {
@@ -42,6 +47,8 @@ export class Event extends Aggregate<EventSlug> {
     private readonly type: EventType,
     private readonly location: EventLocation,
     private readonly categories: EventCategories,
+    private readonly socialNetworks: EventSocialNetworks,
+    private readonly web: EventWeb,
   ) {
     super(slug)
   }
@@ -52,17 +59,16 @@ export class Event extends Aggregate<EventSlug> {
       new EventName(primitives.name),
       new EventShortDescription(primitives.shortDescription),
       new EventContent(primitives.content),
-      new EventPeriod({
-        startsAt: new Date(primitives.startsAt),
-        endsAt: new Date(primitives.endsAt),
-      }),
+      EventPeriod.fromStrings(primitives.startsAt, primitives.endsAt),
       new EventCover(primitives.cover),
       new EventThumbnail(primitives.thumbnail),
-      new EventUpdatedAt(new Date(primitives.updatedAt)),
+      EventUpdatedAt.fromString(primitives.updatedAt),
       new EventColor(primitives.color),
       new EventType(primitives.type),
       new EventLocation(primitives.location),
       new EventCategories(primitives.categories),
+      EventSocialNetworks.fromPrimitivesList(primitives.socialNetworks),
+      new EventWeb(primitives.web),
     )
   }
 
@@ -80,7 +86,9 @@ export class Event extends Aggregate<EventSlug> {
       color: this.color.value,
       type: this.type.value,
       location: this.location.value,
-      categories: this.categories?.value,
+      categories: this.categories.value,
+      web: this.web?.value,
+      socialNetworks: this.socialNetworks.toPrimitivesList(),
     }
   }
 
@@ -113,7 +121,7 @@ export class Event extends Aggregate<EventSlug> {
   }
 
   getCategories(): Array<string> {
-    return this.categories?.value || []
+    return this.categories.value
   }
 
   getPeriodString(): string {
@@ -126,6 +134,18 @@ export class Event extends Aggregate<EventSlug> {
 
   getContent(): string {
     return this.content.value
+  }
+
+  getSocialNetworks(): Array<EventSocialNetwork> {
+    return this.socialNetworks.value
+  }
+
+  getWeb(): string {
+    return this.web.value || ''
+  }
+
+  hasWeb(): boolean {
+    return this.web.value !== undefined
   }
 
   get path(): string {

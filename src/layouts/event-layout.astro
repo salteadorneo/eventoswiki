@@ -2,11 +2,15 @@
 import EventCategories from '@event/server/ui/components/event-categories/event-categories.astro'
 import '@ui/styles/globals.css'
 import { Event } from '../modules/event/server/domain/event'
+import EventSocialLinks from '../modules/event/server/ui/components/event-social-links/event-social-links.astro'
 import BaseHead from '../shared/ui/components/layout/base-head.astro'
 import Footer from '../shared/ui/components/layout/footer.astro'
 import Header from '../shared/ui/components/layout/header.astro'
+import { Text } from '../shared/ui/components/common/typography/text.component'
 import { Urls } from '../shared/ui/urls/urls'
-import { Calendar, MapPin, Video } from '@ui/icons'
+import { Calendar, Link, MapPin, Video } from '@ui/icons'
+import { Heading } from '@ui/components/common/typography/heading.component'
+import { Linkedin } from '@ui/icons'
 
 interface Props {
   event: Event
@@ -20,7 +24,7 @@ const { event } = Astro.props
   <BaseHead
     title={`${event.getName()} - eventos.wiki`}
     description={event.getShortDescription()}
-    image={event.getCover()}
+    image={event.getThumbnail()}
     url={`https://eventos.wiki${Urls.EVENT(event.getId())}`}
   />
   <body>
@@ -30,22 +34,31 @@ const { event } = Astro.props
         id="event-image"
         src={event.getCover()}
         alt={`Foto de portada del evento ${event.getName()}`}
-        class="absolute w-full h-full object-cover shadow-md bg-white"
+        class="event-image"
       />
       <div aria-hidden class="event-header-overlay"></div>
       <div class="event-header-info">
         <EventCategories event={event} />
-        <h1 class="text-4xl font-medium text-white" tabindex={0}>
+        <Heading className="font-medium text-white">
           {event.getName()}
-        </h1>
-        <p class="event-info-item">
+        </Heading>
+        <Text className="event-info-item">
           <Calendar className="event-info-icon" />
           {event.getPeriodWithTimeString()}
-        </p>
-        <p class="event-info-item">
+        </Text>
+        <Text className="event-info-item">
           {event.isOnline() ? <Video className="event-info-icon" /> : <MapPin className="event-info-icon" />}
           {event.getLocation()}
-        </p>
+        </Text>
+        {
+          event.hasWeb() && (
+            <Text className="event-info-item">
+              <Link className="event-info-icon" />
+              {event.getWeb()}
+            </Text>
+          )
+        }
+        <EventSocialLinks socialNetworks={event.getSocialNetworks()} />
       </div>
     </article>
 
@@ -57,6 +70,10 @@ const { event } = Astro.props
       body {
         @apply flex flex-col;
       }
+
+      .event-image {
+        @apply absolute h-full w-full bg-white object-cover shadow-md;
+      }
       .event-header {
         @apply relative h-72 shrink-0 bg-indigo-900;
       }
@@ -64,13 +81,13 @@ const { event } = Astro.props
         @apply absolute bottom-0 left-0 h-52 w-full bg-gradient-to-t from-black;
       }
       .event-header-info {
-        @apply container absolute bottom-0 left-0 right-0 flex w-full flex-col gap-2 px-6 py-4 text-sm text-white xl:px-8;
+        @apply container absolute bottom-0 left-0 right-0 flex w-full flex-col gap-0 px-4 py-4 text-sm text-white;
       }
       .event-info-icon {
         @apply text-xl;
       }
       .event-info-item {
-        @apply flex items-center gap-1;
+        @apply mt-0 flex items-center gap-1;
       }
       .event-body {
         @apply container mt-4 flex-grow px-4;

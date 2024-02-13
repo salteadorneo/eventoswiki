@@ -1,5 +1,5 @@
-import { MarkdownContent } from '@ui/components/common/markdown-content.component'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/components/common/tabs.component'
+import { MarkdownContent } from '@ui/components/common/markdown/markdown-content.component'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/components/common/tabs/tabs.component'
 import { cn } from '@ui/utils/shadcn/utils'
 import type { FC } from 'react'
 import styles from './event-details.module.css'

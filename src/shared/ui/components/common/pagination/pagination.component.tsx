@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { cn } from '@/shared/ui/utils/shadcn/utils'
 import { CaretLeft, CaretRight, HorizontalDots } from '@ui/icons'
-import { buttonVariants, type ButtonProps } from './button.component'
+import { buttonVariants, type ButtonProps } from '../button/button.component'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav

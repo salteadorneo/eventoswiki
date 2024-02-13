@@ -1,4 +1,4 @@
-import { RelationalOperators } from '@/shared/domain/relational-operator'
+import { RelationalOperators } from '@/shared/domain/criteria/relational-operator'
 import { EventCriteria } from './event-criteria'
 import type { EventFilters } from './event-filters'
 import type { EventOrder } from './event-order'

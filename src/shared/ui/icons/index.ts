@@ -11,8 +11,11 @@ export {
   PiMapPin as MapPin,
   PiMoonStars as MoonStars,
   PiSun as Sun,
+  PiTwitchLogo as Twitch,
   PiTwitterLogo as Twitter,
   PiTwitterLogoFill as TwitterFill,
   PiVideo as Video,
   PiYoutubeLogo as Youtube,
+  PiTiktokLogo as TikTok,
+  PiLink as Link,
 } from 'react-icons/pi'
