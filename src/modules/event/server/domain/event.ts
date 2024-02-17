@@ -1,4 +1,5 @@
 import { Aggregate } from '@/shared/domain/ddd/aggregate'
+import { EventAddress } from './value-objects/event-address'
 import { EventCategories } from './value-objects/event-categories'
 import { EventColor } from './value-objects/event-color'
 import { EventContent } from './value-objects/event-content'
@@ -31,6 +32,8 @@ interface EventPrimitives {
   categories: Array<string>
   socialNetworks: Array<EventSocialNetworkPrimitives>
   web?: string
+  address: string
+  addressUrl: string
 }
 
 export class Event extends Aggregate<EventSlug> {
@@ -49,6 +52,7 @@ export class Event extends Aggregate<EventSlug> {
     private readonly categories: EventCategories,
     private readonly socialNetworks: EventSocialNetworks,
     private readonly web: EventWeb,
+    private readonly address: EventAddress,
   ) {
     super(slug)
   }
@@ -69,6 +73,7 @@ export class Event extends Aggregate<EventSlug> {
       new EventCategories(primitives.categories),
       EventSocialNetworks.fromPrimitivesList(primitives.socialNetworks),
       new EventWeb(primitives.web),
+      EventAddress.fromStrings(primitives.address, primitives.addressUrl),
     )
   }
 
@@ -89,6 +94,8 @@ export class Event extends Aggregate<EventSlug> {
       categories: this.categories.value,
       web: this.web?.value,
       socialNetworks: this.socialNetworks.toPrimitivesList(),
+      address: this.address.value.address,
+      addressUrl: this.address.value.url.toString(),
     }
   }
 
@@ -140,12 +147,20 @@ export class Event extends Aggregate<EventSlug> {
     return this.socialNetworks.value
   }
 
+  getAddress(): string {
+    return this.address.getAddress()
+  }
+
+  getAddressUrl(): URL {
+    return this.address.getAddressUrl()
+  }
+
   getWeb(): string {
     return this.web.value || ''
   }
 
   hasWeb(): boolean {
-    return this.web.value !== undefined
+    return Boolean(this.web.value)
   }
 
   get path(): string {

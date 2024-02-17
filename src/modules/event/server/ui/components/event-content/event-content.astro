@@ -1,0 +1,13 @@
+---
+import { MarkdownContent } from '@ui/components/common/markdown/markdown-content.component'
+import { marked } from 'marked'
+import { Event } from '../../../domain/event'
+
+interface Props {
+  event: Event
+}
+const { event } = Astro.props
+const content = await marked.parse(event.getContent())
+---
+
+<MarkdownContent content={content} />

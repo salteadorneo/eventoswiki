@@ -23,6 +23,9 @@ export class SupabaseEventMapper {
       type: SupabaseEventMapper.toEventTypes(supabaseEventDto.type),
       categories: supabaseEventDto.categories.map(category => category.name),
       socialNetworks: SupabaseEventMapper.toEventSocialNetworks(supabaseEventDto.events_social_networks),
+      // FIXME: Change when address and address_url are not optional
+      address: supabaseEventDto.address || '',
+      addressUrl: supabaseEventDto.address_url || 'http://acme.com',
     })
   }
 

@@ -17,4 +17,6 @@ export interface SupabaseEventDto {
   web: string
   categories: Array<SupabaseEventCategoryDto>
   events_social_networks: Array<SupabaseEventSocialNetworkDto>
+  address?: string
+  address_url?: string
 }

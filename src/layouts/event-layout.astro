@@ -10,7 +10,6 @@ import { Text } from '../shared/ui/components/common/typography/text.component'
 import { Urls } from '../shared/ui/urls/urls'
 import { Calendar, Link, MapPin, Video } from '@ui/icons'
 import { Heading } from '@ui/components/common/typography/heading.component'
-import { Linkedin } from '@ui/icons'
 
 interface Props {
   event: Event
@@ -75,7 +74,7 @@ const { event } = Astro.props
         @apply absolute h-full w-full bg-white object-cover shadow-md;
       }
       .event-header {
-        @apply relative h-72 shrink-0 bg-indigo-900;
+        @apply relative h-96 shrink-0 bg-indigo-900;
       }
       .event-header-overlay {
         @apply absolute bottom-0 left-0 h-52 w-full bg-gradient-to-t from-black;
@@ -90,7 +89,7 @@ const { event } = Astro.props
         @apply mt-0 flex items-center gap-1;
       }
       .event-body {
-        @apply container mt-4 flex-grow px-4;
+        @apply container mb-4 mt-4 flex-grow px-4 lg:mb-8;
       }
     </style>
     <script is:inline>

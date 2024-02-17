@@ -1,0 +1,25 @@
+---
+import GoogleMaps from '@ui/components/common/google-maps/google-maps.astro'
+import { Heading } from '@ui/components/common/typography/heading.component'
+import { Text } from '@ui/components/common/typography/text.component'
+import { Event } from '../../../domain/event'
+
+interface Props {
+  event: Event
+}
+const { event } = Astro.props
+---
+
+<article>
+  <Heading as={'h2'}>Dónde</Heading>
+  <Text>{event.getAddress()}</Text>
+  {
+    event.isOnline() ? (
+      <a href={event.getAddressUrl().toString()} target="_blank" rel="noreferrer">
+        Ver online
+      </a>
+    ) : (
+      <GoogleMaps address={event.getAddress()} src={event.getAddressUrl()} />
+    )
+  }
+</article>
