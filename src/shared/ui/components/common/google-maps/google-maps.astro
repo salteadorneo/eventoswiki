@@ -1,0 +1,16 @@
+---
+interface Props {
+  src: URL
+  address: string
+}
+const { src, address } = Astro.props
+---
+
+<iframe
+  class="mt-4 w-full border-none"
+  height="400"
+  src={src.toString()}
+  aria-label={address}
+  allowfullscreen={false}
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"></iframe>
