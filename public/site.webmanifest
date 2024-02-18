@@ -1,0 +1,16 @@
+{
+  "name": "Eventos Wiki",
+  "short_name": "Eventos Wiki",
+  "description": "En eventos.wiki tendrás todos los eventos sobre tecnología en un mismo lugar",
+  "dir": "ltr",
+  "lang": "es",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#E3264F",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "start_url": "/eventos"
+}

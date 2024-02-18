@@ -12,7 +12,10 @@ interface Props {
 const { event } = Astro.props
 ---
 
-<a href={Urls.EVENT(event.getId())}>
+<a
+  href={Urls.EVENT(event.getId())}
+  aria-label={`Ver detalles del evento ${event.getName()}, ${event.getShortDescription()} será en ${event.getLocation()} el ${event.getPeriodString()}`}
+>
   <Card className="event-card">
     <img
       id="event-image"
