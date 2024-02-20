@@ -1,12 +1,27 @@
 import dayjs from 'dayjs'
+import esLocale from 'dayjs/locale/es'
 
-import 'dayjs/locale/es'
+const localeOptions = {
+  ...esLocale,
+  formats: {
+    ...esLocale.formats,
+    L: 'YYYY-MM-DD',
+  },
+}
+dayjs.locale('es', localeOptions)
 
 type ValidDate = string | Date
 
+export type TimeUnit = 'day' | 'week' | 'month' | 'year'
+
+const defaultLocale = 'es'
 export class Datetime {
-  static toDate(dateString: string): Date {
-    return dayjs(dateString).locale('es').toDate()
+  static getWeekDays(locale: string = defaultLocale): Array<string> {
+    const firstDayOfTheWeek = dayjs().locale(locale, { weekStart: 1 }).startOf('week')
+
+    return [...Array(7)].map((_, i) => {
+      return firstDayOfTheWeek.add(i, 'day').toDate().toLocaleDateString(locale, { weekday: 'short' })
+    })
   }
 
   static toDateString(dateToFormat: ValidDate): string {
@@ -27,68 +42,33 @@ export class Datetime {
     return dayjs(dateToFormat).locale('es').format('YYYY-MM-DD')
   }
 
-  static toTimeIsoString(dateToFormat: ValidDate): string {
-    if (!dateToFormat) return ''
-
-    return dayjs(dateToFormat).locale('es').format('HH:mm')
-  }
-
-  static isBeforeToday(date: ValidDate): boolean {
-    if (!date) return false
-
-    const today = dayjs()
-    return dayjs(date).isBefore(today, 'day')
-  }
-
   static areSameDay(dateA: ValidDate, dateB: ValidDate): boolean {
     if (!dateA || !dateB) return false
 
-    const today = dayjs()
     return dayjs(dateA).isSame(dateB, 'day')
   }
 
-  static isAfterYesterday(date: ValidDate): boolean {
-    if (!date) return false
-
-    const yesterday = dayjs().subtract(1, 'day')
-    return dayjs(date).isAfter(yesterday, 'day')
+  static firstDayOfMonth(date: Date, locale: string = defaultLocale): Date {
+    return dayjs(date).locale(locale, { weekStart: 1 }).startOf('month').startOf('week').toDate()
   }
 
-  static sortByDateDesc(dateA?: ValidDate, dateB?: string | Date): number {
-    if (!dateA) return -1
-    if (!dateB) return 1
-    return dayjs(dateA).isBefore(dateB) ? 1 : -1
+  static lastDayOfMonth(date: Date, locale: string = defaultLocale): Date {
+    return dayjs(date).locale(locale, { weekStart: 1 }).endOf('month').endOf('week').toDate()
   }
 
-  static sortByDateAsc(dateA?: ValidDate, dateB?: string | Date): number {
-    if (!dateA) return 1
-    if (!dateB) return -1
-    return dayjs(dateA).isBefore(dateB) ? -1 : 1
+  static diff(dateA: Date, dateB: Date, unit: TimeUnit = 'day') {
+    return dayjs(dateA).diff(dateB, unit)
   }
 
-  static toMonthString(date: Date): string {
-    return dayjs(date).locale('es').format('MMMM')
+  static add(date: Date, amount: number, unit: TimeUnit = 'day') {
+    return dayjs(date).add(amount, unit).toDate()
   }
 
-  static toMonthYearString(date: Date): string {
-    return dayjs(date).locale('es').format('MMMM YYYY')
+  static substract(date: Date, amount: number, unit: TimeUnit = 'day') {
+    return dayjs(date).subtract(amount, unit).toDate()
   }
 
-  static toWeekdayString(date: Date): string {
-    return dayjs(date).locale('es').format('ddd')
-  }
-
-  static toDayNumberString(date: Date): string {
-    return dayjs(date).locale('es').format('DD')
-  }
-
-  static toDayString(date: Date): string {
-    return dayjs(date).locale('es').format('dddd DD MMM')
-  }
-
-  static toDateRangeString(startDate: Date, endDate: Date): string {
-    const start = dayjs(startDate).locale('es').format('DD MMMM YY')
-    const end = dayjs(endDate).locale('es').format('DD MMMM YY')
-    return `${start} - ${end}`
+  static isSame(dateA: Date, dateB: Date, unit: TimeUnit): boolean {
+    return dayjs(dateA).isSame(dateB, unit)
   }
 }

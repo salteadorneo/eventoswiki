@@ -1,0 +1,31 @@
+.days {
+  @apply grid grid-cols-7 place-items-center bg-border;
+  gap: 1px;
+  padding-bottom: 1px;
+}
+
+.weekday {
+  @apply w-full bg-background p-2 text-center text-foreground;
+}
+
+.month-grid {
+  @apply grid grid-cols-7 bg-border;
+  gap: 1px;
+  grid-auto-rows: minmax(150px, auto);
+}
+
+.day-cell {
+  @apply grid grid-rows-[auto,1fr] bg-background p-2 text-foreground;
+}
+
+.other-month-cell {
+  @apply bg-muted text-muted-foreground;
+}
+
+.day {
+  @apply p-2 text-xs;
+}
+
+.today {
+  @apply rounded-full bg-primary text-white;
+}

@@ -1,0 +1,4 @@
+.calendar {
+  @apply border border-border;
+  border-radius: var(--radius);
+}

@@ -1,5 +1,12 @@
 ---
+import { EventsCalendar } from '@/modules/calendar/client/ui/components/events-calendar.component'
+import { Heading } from '@ui/components/common/typography/heading.component'
 import Layout from '../../layouts/layout.astro'
 ---
 
-<Layout title="Calendario" />
+<Layout title="Calendario">
+  <div class="container">
+    <Heading as="h1" className="mb-8">Calendario</Heading>
+    <EventsCalendar client:load />
+  </div>
+</Layout>

@@ -1,0 +1,7 @@
+.calendar-header {
+  @apply flex h-12 items-center justify-between border-b bg-muted p-6;
+}
+
+.selected-date {
+  @apply !text-lg !font-semibold;
+}
